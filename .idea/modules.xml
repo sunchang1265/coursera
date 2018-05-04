@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/coursera.iml" filepath="$PROJECT_DIR$/coursera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/percolation-testing/percolation-testing.iml" filepath="$PROJECT_DIR$/percolation-testing/percolation-testing.iml" />
     </modules>
   </component>
 </project>
