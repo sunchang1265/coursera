@@ -1,8 +1,9 @@
 public class Percolation {
-    public Boolean[][] board;
+    private Boolean[][] board;
     private int n;
     private int[] id;
     private int[] size;
+    private int numOfOpen;
 
     // create n-by-n grid, with all sites blocked
     public Percolation(int n) {
@@ -24,21 +25,22 @@ public class Percolation {
         id[n * n + 1] = id[n * n] + 1; //bottom
         size[n * n] = 1; //top
         size[n * n + 1] = 1; //bottom
+
     }
 
     public void open(int row, int col) {
-        System.out.println("Open: (" + row + ", " + col + ")");
         if(row < 1 || col < 1 || row > n || col > n)
             throw new java.lang.IllegalArgumentException();
         int x = row -1;
         int y = col -1;
-        if(board[x][y] == false) {
+        if(!board[x][y]) {
             board[x][y] = true;
+            numOfOpen++;
             if (row == 1) {
-                union(getID(x, y), id[n*n]);
+                union(id[n*n], getID(x, y));
             }
             if (row == n) {
-                union(getID(x, y), id[n*n + 1]);
+                union(id[n*n + 1], getID(x, y));
             }
 
             if (row > 1 && board[x - 1][y]) union(getID(x, y), getID(x - 1, y));//connect above
@@ -79,23 +81,17 @@ public class Percolation {
         if(row < 1 || col < 1 || row > n || col > n)
             throw new java.lang.IllegalArgumentException();
         int index = getID(row-1, col-1);
-        return root(id[n+1]) == root(index);
+        return root(id[n*n]) == root(index);
     } // is site (row, col) full?
 
     public int numberOfOpenSites() {
-        int num = 0;
-        for (Boolean[] row : board) {
-            for (Boolean b : row) {
-                if (b)
-                    num++;
-            }
-        }
-        return num;
+        return numOfOpen;
     } // number of open sites
 
     public boolean percolates() {
         return root(id[n*n]) == root(id[n*n+1]);
     } // does the system percolate?
+
 
     public void renderBoard(){
         for(int i=0;i<n;i++){
@@ -116,4 +112,5 @@ public class Percolation {
         }
         System.out.println();
     }
+
 }

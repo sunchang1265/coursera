@@ -6,11 +6,11 @@ public class PercolationStats {
     private double[] fractions;
     private int trials;
     public PercolationStats(int n, int trials){
+        if(n<=0 || trials <=0)
+            throw new java.lang.IllegalArgumentException();
         int size = n*n;
         this.trials = trials;
         fractions = new double[trials];
-        if(n<=0 || trials <=0)
-            throw new java.lang.IllegalArgumentException();
         for (int i=0; i<trials; i++){
             Percolation p = new Percolation(n);
             int row,col;
